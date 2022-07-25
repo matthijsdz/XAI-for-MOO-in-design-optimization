@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from MOOCourse.modules.utils import load
 
 from WBProblem import WBProblem
 from TBTProblem import TBTProblem

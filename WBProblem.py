@@ -1,6 +1,3 @@
-from MOOCourse.modules.TwoBarTruss.problem import create_problem
-from MOOCourse.modules.utils import save
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -24,8 +21,7 @@ from desdeo_problem import (
 
 class WBProblem():
     def __init__(self):
-            self.load = 66
-            # weight, stress, buckling stress and deflection
+            # V_weld, V_bar
             self.obj = np.array([True, True])
             self.initial_values = None
             self.constraints = self.create_constraints()
