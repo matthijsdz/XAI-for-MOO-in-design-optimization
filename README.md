@@ -7,4 +7,4 @@ Contains code used for the thesis "Explainable AI in Multi-Objective Design Opti
 * WBProblem.py: Implementation of the welded beam problem and function for transforming the optimization dataset into a classification data set
 * RunMOO.py: code for running multi-objective optimization algorithm on welded beam or two-bar truss problem.
 * RunXAI.py: runs Permutation Feature Importance (PFI), Partial dependence Plots(PDPs), SHAP and LIME methods on the optimization data
-* XAIMethods contains Permutation Feature Importance (PFI), Partial dependence Plots(PDPs), SHAP and LIME methods
+* XAIMethods.py contains Permutation Feature Importance (PFI), Partial dependence Plots(PDPs), SHAP and LIME methods
