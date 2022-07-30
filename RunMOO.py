@@ -48,15 +48,11 @@ def main():
         ScatterPlot(CompleteDataset[:,0],CompleteDataset[:,1],CompleteDataset[:,2])
     else:
         ScatterPlot(CompleteDataset[:,0],CompleteDataset[:,1])
-    columns = objective_names + variable_names
-    CompleteDataset = pd.DataFrame(CompleteDataset,columns=columns)
-    CompleteDataset.to_csv("datasets/{}.csv".format(ProblemType), index=False)
-    # labelling the dataset
-    print("labelling dataset")
+
 
     columns = objective_names + variable_names + ['label', 'label_names']
-    LabelledDataset = MOOproblem.add_labels(CompleteDataset, columns)
-    LabelledDataset.to_csv("datasets/labelled_{}.csv".format(ProblemType), index=False)
+    LabelledDataset = MOOproblem.add_labels(ParetoFront, RandomPoints, columns)
+    LabelledDataset.to_csv("Datasets/labelled_{}.csv".format(ProblemType), index=False)
 
 
 

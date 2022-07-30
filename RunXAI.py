@@ -17,7 +17,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 def load_data(filename, ProblemType):
-    df = pd.read_csv('datasets\{}.csv'.format(filename))
+    df = pd.read_csv('Datasets\{}.csv'.format(filename))
     if ProblemType == "WB":
         X = df.iloc[:,2:6]
         class_names = ["KP", "F1", "F2", "BD"]
@@ -62,10 +62,12 @@ def experiment(ProblemType):
     X,y,class_names = load_data("labelled_{}".format(ProblemType), ProblemType)
     classifier = RunRandomForest(X,y)
     methods = ["PFI", "PDP", "SHAP", "LIME"]
-    #for method in methods:
-    #    explain(classifier, X, y, class_names,  method, ProblemType)
+    for method in methods:
+        explain(classifier, X, y, class_names,  method, ProblemType)
 
 if __name__ == "__main__":
-    ProblemTypes = ["TBT",  "WB"]
+#    ProblemTypes = ["TBT",  "WB"]
+    ProblemTypes = ["TBT"]
+
     for ProblemType in ProblemTypes:
         experiment(ProblemType)
