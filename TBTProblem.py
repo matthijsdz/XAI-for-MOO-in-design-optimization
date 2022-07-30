@@ -137,7 +137,7 @@ class TBTProblem():
 #*******************************************************************************
 
     def optimize(self):
-        step_sizes = np.array([10, 77, 10, 4])[self.obj]
+        step_sizes = np.array([5, 55, 5, 4])[self.obj]
 
         var, obj = solve_pareto_front_representation(self.problem, step_sizes)
 
@@ -149,30 +149,30 @@ class TBTProblem():
         new_data = []
         for row in data:
             row = row.tolist()
-            if row[0] <= 20 and row[1] <= 100 and row[2] <= 20:                     #KP
+            if row[0] <= 10 and row[1] <= 100 and row[2] <= 10:                     #KP
                 row.extend([0, "KP"])
                 new_data.append(row)
-            elif row[0] <= 20 and row[1] > 120 and row[1] <= 180  and row[2] > 20:  #F1
+            elif row[0] <= 10 and row[1] > 100 and row[2] > 10:                     #F1
                 row.extend([1, "F1"])
                 new_data.append(row)
-            elif row[0] > 20 and row[1] <= 100 and row[2] > 40:                     #F2
+            elif row[0] > 10 and row[1] <= 100 and row[2] > 10:                     #F2
                 row.extend([2, "F2"])
                 new_data.append(row)
-            elif row[0] > 10 and row[1] > 120 and row[2] <= 40:                     #F3
+            elif row[0] > 10 and row[1] > 100 and row[2] <= 10:                     #F3
                 row.extend([3, "F3"])
                 new_data.append(row)
-            elif row[0] <= 20 and row[1] <= 60 and row[2] > 20:                     #F12
+            elif row[0] <= 10 and row[1] <= 100 and row[2] > 10:                     #F12
                 row.extend([4, "F12"])
                 new_data.append(row)
-            elif row[0] > 20 and row[0] < 40 and row[1] <= 80 and row[2] <= 20:     #F23
+            elif row[0] > 10 and row[1] <= 100 and row[2] <= 10:     #F23
                 row.extend([5, "F23"])
                 new_data.append(row)
-            elif row[0] <= 20 and row[1] > 120 and row[1] < 220 and row[2] <= 20:   #F13
+            elif row[0] <= 10 and row[1] > 100 and row[2] <= 10:   #F13
                 row.extend([6, "F13"])
                 new_data.append(row)
         for row in RandomData:
             row = row.tolist()
-            if row[0] > 20 and  row[1] > 80  and row[2] > 20:                       #BD
+            if row[0] > 10 and  row[1] > 100  and row[2] > 10:                       #BD
                 row.extend([7, "BD"])
                 new_data.append(row)
         df = pd.DataFrame(new_data,columns=columns)
