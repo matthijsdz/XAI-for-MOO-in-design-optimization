@@ -25,15 +25,14 @@ class PFI:
 
     def plot(self, filename="PFI_importances"):
         FI = []
-        scaler = StandardScaler()
-        predictions = self.classifier.predict(scaler.fit_transform(self.X))
+        predictions = self.classifier.predict(self.X)
         e_orig = mean_squared_error(predictions, self.y)
         for j in self.feature_names:
             importances = []
             for k in range(self.n_repeats):
                 X_perm = self.X.copy()
                 X_perm[j] = np.random.permutation(X_perm[j].values)
-                predictions = self.classifier.predict(scaler.fit_transform(X_perm))
+                predictions = self.classifier.predict(X_perm)
                 e_perm = mean_squared_error(self.y,predictions)
                 importances.append((e_perm)/e_orig)
             FI.append(importances)
@@ -117,6 +116,6 @@ class PDP():
             pdp4 = PartialDependenceDisplay.from_estimator(self.classifier, self.X, features = features,
                 feature_names=self.feature_names,target=3, ax=pdp1.axes_, line_kw={"label": self.class_names[3], "color": "orange"})
         #self.ax.legend()
-        #self.fig.savefig("Plots/{0}".format(filename),dpi=300)
+        self.fig.savefig("Plots/{0}".format(filename),dpi=300)
         plt.show()
         print("PDP plot saved")

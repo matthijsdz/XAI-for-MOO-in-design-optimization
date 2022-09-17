@@ -7,7 +7,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
-from sklearn.preprocessing import StandardScaler
 from sklearn import metrics
 import statistics
 from XAIMethods import LIME, SHAP, PDP, PFI
@@ -27,11 +26,8 @@ def load_data(filename, ProblemType):
     y = df['label']
     return X,y, class_names
 
-def RunRandomForest(X,y):
-    scaler = StandardScaler()
-    X = scaler.fit_transform(X)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
-    classifier = RandomForestClassifier(n_estimators = 100, criterion='entropy', max_depth=1000)
+def RunRandomForest(X_train, X_test, y_train, y_test):
+    classifier = RandomForestClassifier(n_estimators = 100, criterion='entropy', max_depth=1000, bootstrap = True)
     classifier.fit(X_train, y_train)
     y_pred = classifier.predict(X_test)
     print("accuracy = {}".format(metrics.accuracy_score(y_test, y_pred)))
@@ -60,14 +56,14 @@ def explain(classifier, X, y, class_names,XAIMethod,ProblemType):
 
 def experiment(ProblemType):
     X,y,class_names = load_data("labelled_{}".format(ProblemType), ProblemType)
-    classifier = RunRandomForest(X,y)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
+    classifier = RunRandomForest(X_train, X_test, y_train, y_test)
     methods = ["PFI", "PDP", "SHAP", "LIME"]
     for method in methods:
-        explain(classifier, X, y, class_names,  method, ProblemType)
+        explain(classifier, X_test, y_test, class_names,  method, ProblemType)
 
 if __name__ == "__main__":
-#    ProblemTypes = ["TBT",  "WB"]
-    ProblemTypes = ["TBT"]
+    ProblemTypes = ["TBT",  "WB"]
 
     for ProblemType in ProblemTypes:
         experiment(ProblemType)
